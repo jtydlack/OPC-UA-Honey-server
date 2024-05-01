@@ -1,0 +1,12 @@
+# Folders
+__pycache__
+honey
+build
+honey_server.egg-info
+
+# Files
+*.pyc
+.gitignore
+.dockerignore
+Dockerfile
+

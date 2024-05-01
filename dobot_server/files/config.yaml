@@ -1,0 +1,57 @@
+server:
+  server_name: "Python-OPC-UA"
+  server_address: "127.0.0.1"
+  server_app_uri:
+  server_endpoint: "opc.tcp://localhost:4840"
+  robots_url: "http://myDobot.factory.com"
+  log_server_url: "http://logserver.factory.com"
+  refresh_rate: 5
+  security_policy: []
+  country_name: "CZ "
+  state_or_province_name: "state"
+  locality_name: "locality"
+  organization_name: "VUT"
+
+programs:
+  - program: 1
+    path: "/server/dobot_server/files/programs/move_cube.txt"
+    time_length: 24
+
+  - program: 2
+    path: "/server/dobot_server/files/programs/move_stacked_up_cubes.txt"
+    time_length: 30
+
+  - program: 3
+    path: "/server/dobot_server/files/programs/stack_up_cubes.txt"
+    time_length: 60
+
+robots:
+  - label: "robot_1"
+    serial_number: 1234567890
+    id: 1000
+    name: "Souta"
+    program: 1
+    version: "1.1.1.0"
+    laser: True
+    suction_cup: False
+    gripper: False
+
+  - label: "robot_2"
+    serial_number: 2345678901
+    id: 1001
+    name: "Daijin"
+    program: 2
+    version: "1.1.1.0"
+    laser: False
+    suction_cup: False
+    gripper: False
+
+  - label: "robot_3"
+    serial_number: 3456789012
+    id: 1002
+    name: "Suzume"
+    program: 3
+    version: "1.1.1.1"
+    laser: True
+    suction_cup: False
+    gripper: False

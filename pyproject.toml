@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dobot_server"
+authors = [
+    {name = "Julie Tydlackova", email = "241119@vut.cz"},
+]
+description = "My package description"
+readme = "README.rst"
+requires-python = ">=3.10"
+keywords = [""]
+license = {text = ""}
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+
+dependencies = [
+    "asyncua==1.1.0",
+    "bcrypt==4.1.3",
+    "pyyaml==6.0.1",
+    "pandas==2.2.2"
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = ["ruff"]
+
+[project.scripts]
+dobot-server = "dobot_server.server:amain"
+
+[tool.setuptools]
+py-modules = ["dobot_server"]

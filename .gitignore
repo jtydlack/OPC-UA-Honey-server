@@ -1,0 +1,10 @@
+# Folders
+honey
+.idea
+**/__pycache__/*
+*.egg/
+*.egg-info/
+
+# Files
+**/*.pyc
+*.log
