@@ -1,13 +1,13 @@
 server:
   server_name: "Python-OPC-UA"
-  server_address: "127.0.0.1"
-  server_app_uri:
-  server_endpoint: "opc.tcp://localhost:4840"
+  server_address: "0.0.0.0"
+  server_app_uri: "dobotserver"
+  server_endpoint: "opc.tcp://0.0.0.0:4840"
   robots_url: "http://myDobot.factory.com"
   log_server_url: "http://logserver.factory.com"
   refresh_rate: 5
-  security_policy: []
-  country_name: "CZ "
+  security_policy: [Basic256Sha256_SignAndEncrypt]
+  country_name: "CZ"
   state_or_province_name: "state"
   locality_name: "locality"
   organization_name: "VUT"
@@ -27,31 +27,31 @@ programs:
 
 robots:
   - label: "robot_1"
-    serial_number: 1234567890
+    serial_number: "A1234567890B"
     id: 1000
     name: "Souta"
     program: 1
     version: "1.1.1.0"
-    laser: True
-    suction_cup: False
+    laser: False
+    suction_cup: True
     gripper: False
 
   - label: "robot_2"
-    serial_number: 2345678901
+    serial_number: "C2345678901D"
     id: 1001
     name: "Daijin"
     program: 2
     version: "1.1.1.0"
     laser: False
-    suction_cup: False
+    suction_cup: True
     gripper: False
 
   - label: "robot_3"
-    serial_number: 3456789012
+    serial_number: "E3456789012F"
     id: 1002
     name: "Suzume"
     program: 3
     version: "1.1.1.1"
-    laser: True
-    suction_cup: False
+    laser: False
+    suction_cup: True
     gripper: False

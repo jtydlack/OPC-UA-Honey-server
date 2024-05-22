@@ -1,0 +1,1 @@
+Put admin certificates and keys into this folder.

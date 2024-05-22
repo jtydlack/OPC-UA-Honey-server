@@ -4,7 +4,6 @@ import logging
 import os
 import re
 import socket
-import time
 
 import yaml
 
@@ -19,15 +18,16 @@ from pathlib import Path
 from dobot_server.robot_simulation import robot as r
 
 
-CONFIG_FILE: str = str(os.environ.get("CONFIG_FILE"))
-if CONFIG_FILE is None:
-    raise RuntimeError("Config file was not specified")
+CONFIG_FILE: str = str(os.environ.get(
+    "CONFIG_FILE", "/server/dobot_server/files/config.yaml"
+))
+ROOT_FOLDER: str = str(os.environ.get("ROOT_FOLDER", "/server/"))
 robots = []
 server_robots = {}
 
 
 def setup_logger():
-    logger = logging.getLogger("asyncua.uaprocessor")
+    logger = logging.getLogger("__name__")
     logger.setLevel(logging.DEBUG)
     formatter = logging.Formatter("%(asctime)s %(levelname)s %(message)s")
     # file_handler = RotatingFileHandler(
@@ -291,12 +291,11 @@ def get_security_policy(policy_names: list) -> ...:
 
 
 async def main():
-    # _logger = setup_logger()
 
-    if os.path.exists("files/certificates/server.crt"):
-        os.remove("files/certificates/server.crt")
-    if os.path.exists("files/certificates/server.pem"):
-        os.remove("files/certificates/server.pem")
+    if os.path.exists(f"{ROOT_FOLDER}/dobot_server/files/certificates/server.crt"):
+        os.remove(f"{ROOT_FOLDER}/dobot_server/files/certificates/server.crt")
+    if os.path.exists(f"{ROOT_FOLDER}/dobot_server/files/certificates/server.pem"):
+        os.remove(f"{ROOT_FOLDER}/dobot_server/files/certificates/server.pem")
 
     with open(os.path.abspath(CONFIG_FILE)) as f:
         raw_config = yaml.safe_load(f)
@@ -305,7 +304,9 @@ async def main():
     # Set up user_manager and server
     if config.server.security_policy:
         cert_user_manager = CertificateUserManager()
-        admin_cert = Path(os.path.abspath("files/certificates/admin.crt"))
+        admin_cert = Path(os.path.abspath(
+            f"{ROOT_FOLDER}/dobot_server/files/certificates/admin.crt"
+        ))
         await cert_user_manager.add_user(admin_cert, name="admin")
         server = Server(user_manager=cert_user_manager)
     else:
@@ -334,8 +335,10 @@ async def main():
         _logger.info(f"Server security policy set to: {policy}")
         host_name = socket.gethostname()
         server_api_uri = f"{config.server.server_app_uri}@{host_name}"
-        server_cert = Path(os.path.abspath("files/certificates/server.crt"))
-        server_key = Path(os.path.abspath("files/certificates/server.pem"))
+        server_cert = Path(os.path.abspath(
+            f"{ROOT_FOLDER}/dobot_server/files/certificates/server.crt"
+        ))
+        server_key = Path(os.path.abspath(f"{ROOT_FOLDER}/dobot_server/files/certificates/server.pem"))
         await setup_self_signed_certificate(
             server_key,
             server_cert,
@@ -343,10 +346,10 @@ async def main():
             host_name,
             [ExtendedKeyUsageOID.CLIENT_AUTH, ExtendedKeyUsageOID.SERVER_AUTH],
             {
-                "countryName": f"{country}",
-                "stateOrProvinceName": f"{state}",
-                "localityName": f"{locality}",
-                "organizationName": f"{organization}",
+                "countryName": f"{country.strip()}",
+                "stateOrProvinceName": f"{state.strip()}",
+                "localityName": f"{locality.strip()}",
+                "organizationName": f"{organization.strip()}",
             },
         )
         # Load server certificate and private key

@@ -28,7 +28,7 @@ server:
   server_endpoint: "opc.tcp://localhost:4840"
   robots_url: "http://myDobot.factory.com"
   log_server_url: "http://logserver.factory.com"
-  refresh_rate: 5
+  refresh_rate: 6
   security_policy: [Basic256Sha256_SignAndEncrypt]
   country_name: "CZ"
   state_or_province_name: "state"
