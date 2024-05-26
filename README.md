@@ -2,15 +2,36 @@
 
 ## About
 
+This project is part of BUT thesis for honeypot for OPC UA.
+
 ## How to install
-### Linux
-#### 1. Using venv
+### As python script
+
 ```commandline
 git clone git@github.com:jtydlack/OPC-UA_to_modbys_gateway.git
 cd OPC-UA_to_modbys_gateway
 python -m venv honey
 source honey/bin/activate
 pip install -r requirements.txt
+CONFIG_FILE={absolute_path_to_config.yaml} ROOT_FOLDER={absolute_path_to_root_folder_of_project} python3 dobot_server/server.py 
+
+# or
+
+python -m venv honey
+pip install -e .
+CONFIG_FILE={absolute_path_to_config.yaml} ROOT_FOLDER={absolute_path_to_root_folder_of_project} dobot-server 
+```
+
+### As a container
+```commandline
+git clone git@github.com:jtydlack/OPC-UA_to_modbys_gateway.git
+cd OPC-UA_to_modbys_gateway
+
+# Create container image
+podman build -t dobot-server:latest
+
+# Run container image
+podman run -e=CONFIG_FILE={absolute_path_to_config.yaml} -e=ROOT_FOLDER={absolute_path_to_root_folder_of_project} -it localhost/dobot-server:latest
 ```
 
 ## Configuration
@@ -172,10 +193,7 @@ Multiple robots can have the same program.
 arm, if set to False the arm cannot use laser even if it is set in program to True.
 The same is applied to `susction_cup: bool` and `gripper: bool`.
 
-## How to run
+## How to run as honeypot
 
 This server is supposed to be run in
-[GitHub project honeynet](https://github.com/mnecas/honeynet) but probably can
-be run in other project which are capable of running dockerized server as honeypot.
-
-## How to make program template
+[GitHub project honeynet](https://github.com/mnecas/honeynet).
