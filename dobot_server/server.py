@@ -417,7 +417,7 @@ async def main():
 
     refresh_rate = config.server.refresh_rate
     if refresh_rate is None:
-        refresh_rate = 1
+        refresh_rate = 10
 
     async with server:
         while True:
